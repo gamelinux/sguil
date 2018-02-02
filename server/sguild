@@ -146,9 +146,10 @@ set LOGGER {}
 # Fork and thread don't play nice together so we bail 
 # w/an error if threading was enabled
 if { [info exists ::tcl_platform(threaded)] } {
-    puts "ERROR: This version of tcl was compile with threading enabled.\
-          Sguil is NOT compatible with threading."
-    CleanExit 1
+    puts "INFO: This version of tcl was compile with threading enabled.\
+          Some versions of tcl does not play well with threading enabled\
+          and Inter-Process Communication (IPC) which Sguil uses."
+    #CleanExit 1
 }
 
 # Check for the existance of logger 

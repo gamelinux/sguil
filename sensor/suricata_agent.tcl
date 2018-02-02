@@ -577,8 +577,8 @@ proc SguildCmdRcvd { socketID } {
             AgentInfo             { AgentInfo [lindex $data 4] [lindex $data 5] }
             LastCidResults        { SetLastCid [lindex $data 1] [lindex $data 2] }
             Confirm               { ConfirmMsg [lindex $data 1] [lindex $data 2] }
-            Failed                { FailMsg [lindex $data 1] [lindex $data 2] [lindex $data 3] }
-            default               { if {$DEBUG} {puts "Sguil Cmd Unkown: $sguildCmd"} }
+            Failed                { FailedMsg [lindex $data 1] [lindex $data 2] [lindex $data 3] }
+            default               { if {$DEBUG} {puts "Sguil Cmd Unknown: $sguildCmd"} }
 
         }
 
@@ -647,7 +647,7 @@ proc Daemonize {} {
     id process group set
     if {[fork]} {exit 0}
     set PID [id process]
-    if { ![info exists PID_FILE] } { set PID_FILE "/var/run/snort_agent.pid" }
+    if { ![info exists PID_FILE] } { set PID_FILE "/var/run/suricata_agent.pid" }
     set PID_DIR [file dirname $PID_FILE]
 
     if { ![file exists $PID_DIR] || ![file isdirectory $PID_DIR] || ![file writable $PID_DIR] } {
@@ -746,7 +746,7 @@ if { ![info exists CONF_FILE] } {
 
     } else {
 
-        puts "Couldn't determine where the snort_agent.tcl config file is"
+        puts "Couldn't determine where the suricata_agent.tcl config file is"
         puts "Looked for /etc/suricata_agent.conf and ./suricata_agent.conf."
         DisplayUsage $argv0
 
